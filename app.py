@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from transformers import pipeline
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 classifier = pipeline(
     "sentiment-analysis",
