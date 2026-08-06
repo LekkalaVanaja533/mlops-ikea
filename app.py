@@ -1,12 +1,21 @@
+from flask import Flask, request, jsonify
 from transformers import pipeline
+
+app = Flask(_name_)
 
 classifier = pipeline(
     "sentiment-analysis",
     model="./model"
 )
 
-text = "I love MLOps"
+@app.route("/")
+def home():
+    return "Sentiment Analysis API Running"
 
-result = classifier(text)
+@app.route("/predict", methods=["POST"])
+def predict():
+    text = request.json["text"]
+    result = classifier(text)
+    return jsonify(result)
 
-print(result)
+app.run(host="0.0.0.0", port=5000)
